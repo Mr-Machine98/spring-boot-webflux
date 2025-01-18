@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+	<h1 th:text="${title}"></h1>
+	<a th:href="@{/form}">Create +</a>
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th> 
+				<th>Name</th> 
+				<th>Price</th> 
+				<th>Date</th> 
+				<th>Category</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="p : ${products}">
+				<td><a th:text="${#strings.abbreviate(p.id, 10)}" th:href="@{/detail/} + ${p.id}"></a></td>
+				<td th:text="${p.name}"></td>
+				<td th:text="${#numbers.formatCurrency(p.price)}"></td>
+				<td th:text="${#temporals.format(p.createAt, 'dd/MM/yyyy')}"></td>
+				<td th:text="${p.category.name}"></td>
+				<td><a th:href="@{/form/} + ${p.id}">Edit</a></td>
+				<td><a th:href="@{/delete/} + ${p.id}" onclick="return confirm('Are you sure to delete this Product?')" >Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

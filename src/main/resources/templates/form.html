@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+	<h1 th:text="${title}"></h1>
+	<a th:href="@{/findAllProducts}">Back</a>
+	<form th:action="@{/form}" method="post" th:object="${product}" enctype="multipart/form-data">
+		<!-- 
+		<div>
+			<input th:if="${product.id != null}"  type="hidden" th:field="*{id}">
+		</div>
+		 -->
+		<div>
+			<label for="name">Name</label> <input type="text" th:field="*{name}">
+			<small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+		</div>
+		<div>
+			<label for="price">Price</label> <input type="number"
+				th:field="*{price}"> <small
+				th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></small>
+		</div>
+		<div>
+			<label for="createAt">Date</label> <input type="date"
+				th:field="*{createAt}">
+		</div>
+		<div>
+			<label for="category.id">Category</label>
+			<select th:field="*{category.id}">
+				<option value="">-- Select --</option>
+				<option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+			</select> <small th:if="${#fields.hasErrors('category.id')}"
+				th:errors="*{category.id}"></small>
+		</div>
+		<div>
+			<label for="file">Picture</label> 
+			<input type="file" name="file"/>
+		</div>
+		<div>
+			<input type="submit" th:value="${botom}">
+		</div>
+	</form>
+</body>
+</html>
